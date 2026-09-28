@@ -14,7 +14,7 @@ class Name(Field):
 class Phone(Field):
     def __init__(self, value):
         if not value.isdigit() or len(value) != 10:
-            raise ValueError("Номер занадто короткий!")
+            raise ValueError("Номер телефону повинен містити рівно 10 цифр")
         super().__init__(value)
 
 class Record:
@@ -25,16 +25,14 @@ class Record:
     def edit_phone(self, old_phone, new_phone):
         phone_objekt = self.find_phone(old_phone)
         if not phone_objekt:
-            raise ValueError(f"контакт{old_phone}не знайдено")
+            raise ValueError(f"Телефон {old_phone} не знайдено")
         new_phone_objekt = Phone(new_phone)
         index = self.phones.index(phone_objekt)
         self.phones[index] = new_phone_objekt
 
 
     def add_phone(self, phone_number):
-        new_phone_objekt = Phone(new_phone)
         self.phones.append(Phone(phone_number))
-
 
     def remove_phone(self, phone):
         find_objekt = self.find_phone(phone)
@@ -64,6 +62,4 @@ class AddressBook(UserDict):
     def delete(self, name):
         if name in self.data: 
             del self.data[name]
-            print (f"контакт {name} видалений")
-        else:
-            print("контакта не існує.")
+        
